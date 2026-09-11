@@ -1,0 +1,124 @@
+.fuentes-block {
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.65rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 2rem;
+    text-align: left;
+    word-break: break-word;
+}
+
+.fuentes-block strong {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.fuentes-block a {
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: underline;
+}
+
+.fuentes-block a:link,
+.fuentes-block a:visited {
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: underline;
+}
+
+.fuentes-block a:hover,
+.fuentes-block a:focus-visible {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* =========================================================
+   ESTILOS COMPARTIDOS - index.html / percepcion.html / desinformacion.html
+   Todo lo que se repetía en las 3 páginas vive acá.
+   Cada HTML mantiene en su propio <style> solo lo que es
+   específico de esa página.
+   ========================================================= */
+
+/* --- RESET --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* --- FUENTE CUSTOM (Those Glitch) --- */
+/* Nota: si podés, renombrá el archivo sin espacios
+   (ej: those-glitch-regular.ttf) para evitar problemas
+   de mayúsculas/minúsculas o de sistema de archivos
+   entre tu compu y el servidor donde subas esto. */
+@font-face {
+    font-family: 'Those Glitch';
+    src: url('recursos/Those Glitch Regular.ttf') format('truetype');
+}
+
+:root {
+    /* Paleta usada en index.html */
+    --bg-dark-blue: #000226;
+    --text-light: #e0e5ff;
+    --highlight-bg: rgba(255, 255, 255, 0.15);
+    --highlight-border: rgba(255, 255, 255, 0.4);
+    --red-accent: #ff2a2a;
+
+    /* Paleta usada en percepcion.html y desinformacion.html */
+    --bg-blue: #000226;
+    --text-white: #ffffff;
+    --red-accent-alt: #ff003c;
+}
+
+/* --- TIPOGRAFÍA DE TÍTULOS (base para las 3 páginas) --- */
+h1, h2, h3 {
+    font-family: 'Those Glitch', 'Impact', sans-serif;
+    font-weight: normal;
+}
+
+/* --- BOTÓN "INICIO" / "VOLVER" (usado en percepcion.html y desinformacion.html) --- */
+.btn-inicio {
+    background-color: #d9d9d9;
+    color: #000;
+    border: none;
+    padding: 10px 40px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    text-transform: uppercase;
+    display: inline-block;
+    font-family: 'Russo One', sans-serif;
+}
+.btn-inicio:hover,
+.btn-inicio:focus-visible {
+    background-color: #fff;
+}
+
+/* --- CARA DE PIE DE PÁGINA (percepcion.html / desinformacion.html) --- */
+.footer-face {
+    width: 150px;
+    height: 200px;
+    object-fit: contain;
+}
+
+/* --- BOTONES TIPO "TAB" (desinformacion.html) --- */
+.boton-tab {
+    background-color: #d9d9d9;
+    color: #000;
+    border: none;
+    padding: 8px 30px;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: 'Russo One', sans-serif;
+}
+.boton-tab:hover,
+.boton-tab:focus-visible {
+    background-color: #fff;
+}
+
+/* --- ESTADO DE FOCO ACCESIBLE PARA CUALQUIER ELEMENTO CLICKEABLE --- */
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}

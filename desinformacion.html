@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desinformación Política - Deepfakes</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+
+    <!-- Estilos compartidos entre las 3 páginas (reset, fuente custom, variables, botones, etc.) -->
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+.footer-face-link:hover,
+.footer-face-link:focus-visible {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+.footer-link-wrapper:hover .footer-face,
+.footer-link-wrapper:focus-visible .footer-face {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    transform: scale(1.05) rotate(-12deg);
+}
+
+.propagacion-section h2,
+.cheapfakes-section h2,
+.identidades-section h2,
+.slop-section h2 {
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+}
+        .glitch-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.glitch-group {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+}
+
+.glitch-block {
+    position: absolute;
+    background-color: #0001FF;
+}
+
+.gb-main {
+    top: 0;
+    left: 0;
+    width: 90px;
+    height: 90px;
+}
+
+.gb-mini {
+    width: 18px;
+    height: 18px;
+}
+.gb-mini-a { top: -14px; left: 100px; }
+.gb-mini-b { top: 100px; left: -20px; }
+
+/* Distribución con bastante más distancia entre grupos,
+   alternando izquierda/derecha, saltos de ~450-600px */
+.gg-1  { top: 250px;  right: 0; }
+.gg-2  { top: 750px;  left: 0; }
+.gg-3  { top: 1300px; right: 0; }
+.gg-4  { top: 1750px; left: 0; }
+.gg-5  { top: 2400px; right: 0; }
+.gg-6  { top: 2950px; right: 0; }
+.gg-7  { top: 3400px; left: 0; }
+.gg-8  { top: 3900px; right: 0; }
+.gg-9  { top: 4400px; right: 0; }
+.gg-10 { top: 5100px; right: 0; }
+.gg-11 { top: 5700px; left: 0; }
+
+        body {
+            background-color: var(--bg-blue);
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: var(--text-white);
+            font-family: 'Russo One', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .infographic-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 5rem;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        /* =========================================
+           1. CABECERA (Título y Caras)
+           ========================================= */
+        .header-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            margin-top: 2rem;
+        }
+
+        .header-section h1 { font-size: 4.5rem; line-height: 1; margin-bottom: 2rem; text-shadow: 3px 3px 0 #000; }
+
+        .header-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .main-face {
+            width: 760px;
+            height: 760px;
+            z-index: 2;
+            object-fit: contain;
+            transform: rotate(-12deg);
+            margin-top: -100px;  
+        }
+
+        .side-face-left {
+            width: 340px;
+            height: 480px;
+            position: absolute;
+            left: -200px;
+            top: 5%;
+            cursor: pointer;
+            object-fit: contain;
+            /* Inclinación hacia la izquierda */
+            transform: rotate(-15deg);
+            transition: transform 0.3s;
+        }
+        .side-face-left:hover,
+        .side-face-left:focus-visible {
+            transform: scale(1.1) rotate(-15deg);
+        }
+
+        .header-text-right {
+            width: 340px;
+            height: 480px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            position: absolute;
+            right: -200px;
+            top: 20%;
+            text-align: right;
+        }
+
+        /* =========================================
+   2. PROPAGACIÓN - GRÁFICO INTERACTIVO 1X → 6X
+   ========================================= */
+   .propagacion-section h2 {
+    font-size: 1.6rem;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    margin-bottom: 3rem;
+    line-height: 1.3;
+}
+
+.propagacion-section {
+    background-color: #000;
+    border: 2px solid #ffffff;
+    padding: 3rem 3rem 3.5rem 3rem;
+    position: relative;
+    /* Corte diagonal en la esquina superior derecha */
+    clip-path: polygon(
+        0 0,
+        calc(100% - 60px) 0,
+        100% 60px,
+        100% 100%,
+        0 100%
+    );
+}
+
+.propagacion-section {
+    background-color: #000;
+    border: 2px solid #ffffff;
+    padding: 3rem 3rem 3.5rem 3rem;
+}
+
+.propagacion-content {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+}
+
+.propagacion-graph {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 90px;
+    cursor: pointer;
+}
+
+.graph-label {
+    font-family: 'Russo One', sans-serif;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.graph-bar-wrap {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.graph-bar {
+    width: 100%;
+    height: 36px;
+    background-color: #5A9BD6;
+    transition: height 0.5s ease, opacity 0.3s ease;
+}
+
+.graph-arrow {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    opacity: 0;
+    transition: height 0.5s ease, opacity 0.3s ease;
+}
+
+/* Estado hover: la barra desaparece y crece la flecha */
+.propagacion-graph:hover .graph-bar {
+    height: 0;
+    opacity: 0;
+}
+.propagacion-graph:hover .graph-arrow {
+    height: 220px;
+    opacity: 1;
+}
+
+.graph-baseline {
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    margin-top: 0.5rem;
+}
+
+.propagacion-text {
+    font-family: 'Russo One', sans-serif;
+    max-width: 480px;
+    text-align: left;
+}
+.propagacion-text p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 0; /* para que no quede aire extra abajo y se alinee bien con la línea */
+}
+
+        /* =========================================
+   3. CHEAPFAKES - TOGGLE ACTIVO/INACTIVO
+   ========================================= */
+.cheapfakes-section h2 {
+    margin-bottom: 3rem;
+    font-size: 1.6rem;
+    line-height: 1.3;
+}
+
+.cheapfakes-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+.cheapfake-item {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+/* El video no seleccionado queda atenuado */
+.cheapfake-item.inactive {
+    opacity: 0.35;
+}
+
+.cheapfake-img {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: border-color 0.4s ease;
+    object-fit: cover;
+    background-color: #000;
+}
+
+.cheapfake-item.active .cheapfake-img {
+    border-color: rgba(255,255,255,0.6);
+}
+
+.cheapfake-text {
+    font-size: 0.85rem;
+    text-align: center;
+    line-height: 1.4;
+}
+
+        /* =========================================
+   4. RAGEBAIT - DIAGRAMA DE VIRALIZACIÓN
+   ========================================= */
+.ragebait-section h2 { margin-bottom: 3rem; }
+.ragebait-icons-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+    background-color: #000;
+    border: 2px solid #ffffff;
+    padding: 2.5rem 3rem;
+}
+
+.ragebait-icon-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.ragebait-icon-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    line-height: 0;
+}
+
+.ragebait-icon-img {
+    width: 170px;
+    height: 170px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.ragebait-icon-item.active .ragebait-icon-img {
+    filter: brightness(0) saturate(100%) invert(19%) sepia(94%) saturate(7484%) hue-rotate(357deg) brightness(97%) contrast(119%);
+    transform: scale(1.08);
+}
+
+.ragebait-popup {
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    background-color: #d9d9d9;
+    border: 2px solid #14149b;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.4);
+    transition: width 0.35s ease, opacity 0.3s ease;
+    flex-shrink: 0;
+}
+
+.ragebait-icon-item.active .ragebait-popup {
+    width: 240px;
+    opacity: 1;
+}
+
+.ragebait-popup-bar {
+    height: 20px;
+    background: linear-gradient(90deg, #000f9e, #3f6fe0);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
+    padding: 0 5px;
+}
+
+.ragebait-popup-bar span {
+    width: 11px;
+    height: 11px;
+    background-color: #d9d9d9;
+    border: 1px solid #000;
+}
+
+.ragebait-popup-text {
+    font-family: 'Russo One', sans-serif;
+    color: #14149b;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    padding: 0.8rem;
+}
+
+@media (max-width: 640px) {
+    .ragebait-icon-item { flex-direction: column; }
+    .ragebait-icon-item.active .ragebait-popup { width: 220px; }
+}
+.viral-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    width: 100%;
+    min-height: 520px;
+}
+
+/* --- PANEL DE TEXTO IZQUIERDO --- */
+.viral-text-panel {
+    display: flex;
+    gap: 1.2rem;
+    width: 55%;
+    min-width: 280px;
+}
+
+.viral-bar {
+    width: 4px;
+    background-color: #ffffff;
+    flex-shrink: 0;
+    border-radius: 2px;
+}
+
+.viral-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.viral-title {
+    font-size: 2.2rem;
+    text-align: left;
+    letter-spacing: 2px;
+    line-height: 1;
+    transition: color 0.3s ease;
+}
+
+.viral-desc {
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.viral-media {
+    width: 100%;
+    max-width: 380px;
+}
+.viral-media img,
+.viral-media video {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
+}
+
+.viral-media video {
+    background-color: #000;   /* el fondo negro solo tiene sentido en video, mientras carga */
+}
+
+/* --- CADENA DE CÍRCULOS A LA DERECHA --- */
+.viral-path-wrap {
+    position: relative;
+    left: 30%;
+    width: 32%;          /* antes 40% */
+    max-width: 240px;    /* antes 320px */
+    aspect-ratio: 300 / 1000;
+    flex-shrink: 0;
+}
+
+.viral-path-bg {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 0;
+    pointer-events: none;
+    transform: scale(2.70)
+}
+
+.viral-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1;
+    transition: width 0.4s ease, height 0.4s ease, background-color 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
+}
+
+.viral-node.dist-0 {
+    width: 100px;   /* antes 130px */
+    height: 100px;
+    opacity: 1;
+}
+.viral-node.dist-1 {
+    width: 65px;    /* antes 85px */
+    height: 65px;
+    opacity: 1;
+}
+.viral-node.dist-2,
+.viral-node.dist-3 {
+    width: 42px;    /* antes 55px */
+    height: 42px;
+    opacity: 0.75;
+}
+
+.viral-node:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+}
+
+
+        /* =========================================
+   5. IDENTIDADES SINTÉTICAS - PERFILES DESPLEGABLES
+   ========================================= */
+.identidades-section h2 {
+    margin-bottom: 3rem;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.identidades-row {
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.identidad-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 160px;
+    cursor: pointer;
+}
+
+.identidad-name {
+    font-family: 'Russo One', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    text-align: center;
+}
+
+.identidad-img {
+    width: 160px;
+    height: 160px;
+    border-radius: 15px;
+    object-fit: cover;
+    border: 3px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+/* Cuando el perfil está abierto, resalta el borde de la foto */
+.identidad-item.open .identidad-img {
+    border-color: #0001FF;
+}
+
+/* Panel desplegable: oculto por defecto, se despliega con animación */
+.identidad-panel {
+    width: 260px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    margin-top: 0;
+    background-color: #ffffff;
+    color: #080b40;
+    border: 3px solid #0001FF;
+    border-radius: 8px;
+    transition: max-height 0.5s ease, opacity 0.4s ease, margin-top 0.4s ease;
+}
+
+.identidad-item.open .identidad-panel {
+    max-height: 900px;
+    opacity: 1;
+    margin-top: 1rem;
+    padding: 1.2rem;
+}
+
+.identidad-desc {
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.identidad-video {
+    width: 100%;
+    border-radius: 4px;
+    background-color: #000;
+    display: block;
+}
+
+        /* =========================================
+   6. DEEPFAKES ESPECÍFICOS - TOGGLE + FASES
+   ========================================= */
+.deepfake-especifico-section h2 {
+    margin-bottom: 2rem;
+    font-size: 1.6rem;
+    line-height: 1.3;
+}
+
+.botones-row {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.boton-tab.active {
+    background-color: #fff;
+    box-shadow: 0 0 0 2px #0001FF;
+}
+
+.video-player {
+    display: block;
+    width: 100%;
+    max-width: 700px;
+    height: 400px;
+    margin: 0 auto 4rem auto;
+    background-color: #000;
+    object-fit: cover;
+}
+
+/* --- CARRUSEL DE FASES --- */
+.fases-carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3.5rem;
+}
+
+.fase-arrow {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.6rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0.5rem;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+.fase-arrow:hover {
+    transform: scale(1.15);
+}
+
+.fase-cards-viewport {
+    position: relative;
+    width: min(85vw, 380px);
+    height: 480px;
+}
+
+.fase-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #e5e5e5;
+    color: #111;
+    border: 3px solid #0001FF;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    font-family: 'Russo One', sans-serif;
+    overflow-y: auto;
+    transition: transform 0.45s ease, opacity 0.45s ease;
+}
+
+.fase-title {
+    text-align: center;
+    font-size: 1.3rem;
+    margin-bottom: 0.3rem;
+    letter-spacing: 1px;
+}
+.fase-subtitle {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+}
+.fase-intro {
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+.fase-list {
+    list-style: none;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+.fase-list li {
+    margin-bottom: 0.8rem;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.fase-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+}
+.fase-sublist {
+    list-style: none;
+    margin: 0.5rem 0 0.5rem 1rem;
+}
+.fase-sublist li::before {
+    content: "•";
+}
+.fase-highlight {
+    color: #0001FF;
+    font-weight: bold;
+}
+
+/* Estados del carrusel según la distancia al índice activo (efecto apilado) */
+.fase-card[data-state="active"]  { transform: translateX(0) scale(1); opacity: 1; z-index: 5; }
+.fase-card[data-state="next-1"]  { transform: translateX(45px) translateY(15px) scale(0.94); opacity: 0.55; z-index: 4; }
+.fase-card[data-state="next-2"]  { transform: translateX(85px) translateY(30px) scale(0.88); opacity: 0.3; z-index: 3; }
+.fase-card[data-state="prev-1"]  { transform: translateX(-45px) translateY(15px) scale(0.94); opacity: 0.55; z-index: 4; }
+.fase-card[data-state="prev-2"]  { transform: translateX(-85px) translateY(30px) scale(0.88); opacity: 0.3; z-index: 3; }
+.fase-card[data-state="hidden"]  { opacity: 0; pointer-events: none; z-index: 1; }
+
+
+        /* =========================================
+           8. FOOTER
+           ========================================= */
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+       .footer-face-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    text-decoration: none;
+    color: #fff;
+    margin-top: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.footer-face-cta {
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.footer-face {
+    width: 600px;
+    height: 600px;
+    transform: rotate(12deg)
+}
+
+.footer-face-label {
+    font-size: 2.2rem;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.fuentes-block {
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.65rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 2rem;
+    text-align: left;
+    word-break: break-word;
+}
+
+.fuentes-block strong {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.fuentes-block a {
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: underline;
+}
+
+.fuentes-block a:link,
+.fuentes-block a:visited {
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: underline;
+}
+
+.fuentes-block a:hover,
+.fuentes-block a:focus-visible {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+</style>
+</head>
+<body>
+
+    <div class="infographic-container">
+
+        <!-- 1. CABECERA -->
+        <section class="header-section">
+            <h1>DESINFORMACIÓN<br>POLÍTICA</h1>
+            <div class="header-content">
+
+                <!-- Link Volver (Cara a la izquierda) -->
+                <a href="index.html">
+                    <img src="recursos/caraprincipal.png" class="img-placeholder side-face-left" alt="Volver Inicio">
+                </a>
+
+                <!-- Cara Central -->
+                <img src="recursos/carapolitica.png" class="img-placeholder main-face" alt="Político sin rostro"> 
+
+                <!-- Texto explicativo a la derecha -->
+                <div class="header-text-right">
+                    <p>La desinformación política analiza cómo los deepfakes y otros contenidos generados o manipulados con IA pueden utilizarse para distorsionar la realidad, influir en la opinión pública y afectar procesos electorales. 
+
+                        Su rápida difusión en redes sociales facilita la circulación de información falsa y dificulta que los usuarios puedan distinguir entre hechos reales y manipulaciones.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. PROPAGACIÓN -->
+        <!-- 2. PROPAGACIÓN -->
+    <section class="propagacion-section">
+        <h2>LA DESINFORMACIÓN SE PROPAGA 6 VECES MÁS RÁPIDO</h2>
+
+    <div class="propagacion-content">
+        <div class="propagacion-graph" id="propagacion-graph">
+            <span class="graph-label" id="graph-label">1X</span>
+            <div class="graph-bar-wrap">
+                <div class="graph-bar" id="graph-bar"></div>
+                <svg class="graph-arrow" id="graph-arrow" viewBox="0 0 100 260" preserveAspectRatio="none">
+                    <polygon points="50,0 100,80 70,80 70,260 30,260 30,80 0,80" fill="#ff003c"/>
+                </svg>
+            </div>
+            <div class="graph-baseline"></div>
+        </div>
+
+        <div class="propagacion-text">
+            <div class="propagacion-text">
+                <p>LAS NOTICIAS FALSAS SE DIFUNDEN A UNA VELOCIDAD 6&times; SUPERIOR A LAS VERDADERAS.</p>
+            </div>
+    </div>
+    </section>
+
+        <!-- 3. CHEAPFAKES -->
+<!-- 3. CHEAPFAKES -->
+<section class="cheapfakes-section">
+    <h2>LOS CHEAPFAKES: MANIPULACIONES SIMPLES QUE DOMINAN LAS CAMPAÑAS</h2>
+
+    <div class="cheapfakes-row" id="cheapfakes-row">
+        <div class="cheapfake-item active" data-cheapfake="1">
+            <video class="cheapfake-img" src="recursos/cheapfake1.mp4" controls playsinline></video>
+            <div class="cheapfake-text">
+                Un video falso de Javier Milei, donde supuestamente hablaba en contra de las personas con discapacidad, superó las 500.000 visualizaciones.
+            </div>
+        </div>
+        <div class="cheapfake-item inactive" data-cheapfake="2">
+            <video class="cheapfake-img" src="recursos/cheapfake2.mp4" controls playsinline></video>
+            <div class="cheapfake-text">
+                Un video manipulado de Axel Kicillof, anunciando falsamente un aumento de impuestos y utilizando un fondo y escenografía reales de su cuenta oficial, superó las 150.000 visualizaciones.
+            </div>
+        </div>
+    </div>
+    <p class="fuentes-block">
+        <strong>Fuentes:</strong> <br>
+        <a href="https://www.unesco.org/es/articles/inteligencia-artificial-y-desinformacion" target="_blank" rel="noopener">https://www.unesco.org/es/articles/inteligencia-artificial-y-desinformacion</a><br>
+        <a href="https://www.eset.com/py/acerca-de-eset/sala-de-prensa/comunicados-de-prensa/articulos-de-prensa/7-casos-reales-de-estafas-donde-se-utilizaron-deepfakes/ " target="_blank" rel="noopener">https://www.eset.com/py/acerca-de-eset/sala-de-prensa/comunicados-de-prensa/articulos-de-prensa/7-casos-reales-de-estafas-donde-se-utilizaron-deepfakes/ </a><br>
+        <a href="https://chequeado.com/ultimas-noticias/los-videos-falsos-creados-con-ia-la-desinformacion-protagonista-de-2025/ " target="_blank" rel="noopener">https://chequeado.com/ultimas-noticias/los-videos-falsos-creados-con-ia-la-desinformacion-protagonista-de-2025/ </a><br>
+        <a href="https://chequeado.com/ultimas-noticias/circularon-videos-de-milei-y-kicillof-hechos-con-ia-como-identificarlos-y-como-cuidarse-de-estas-desinformaciones/ " target="_blank" rel="noopener">https://chequeado.com/ultimas-noticias/circularon-videos-de-milei-y-kicillof-hechos-con-ia-como-identificarlos-y-como-cuidarse-de-estas-desinformaciones/ </a>
+    </p>
+</section>
+
+        <!-- 4. RAGEBAIT -->
+<section class="ragebait-section">
+    <h2>RAGEBAIT: LA INDIGNACIÓN COMO MOTOR DE VIRALIZACIÓN</h2>
+
+    <div class="viral-diagram">
+        <div class="viral-text-panel">
+            <div class="viral-bar" id="viral-bar"></div>
+            <div class="viral-content">
+                <h3 class="viral-title" id="viral-title"></h3>
+                <p class="viral-desc" id="viral-desc"></p>
+                <div class="viral-media" id="viral-media"></div>
+            </div>
+        </div>
+
+        <div class="viral-path-wrap">
+            <img src="recursos/aro.png" class="viral-path-bg" alt="">
+        
+            <button type="button" class="viral-node" data-step="0" style="top:16%; left:85%;" aria-label="Contenido IA"></button>
+            <button type="button" class="viral-node" data-step="1" style="top:27%; left:43%;" aria-label="Provocación"></button>
+            <button type="button" class="viral-node" data-step="2" style="top:50%; left:20%;" aria-label="Indignación"></button>
+            <button type="button" class="viral-node" data-step="3" style="top:73%; left:43%;" aria-label="Interacción"></button>
+            <button type="button" class="viral-node" data-step="4" style="top:83%; left:85%;" aria-label="Viralización"></button>
+        </div>
+    </div>
+
+    <div class="ragebait-icons-row">
+        <div class="ragebait-icon-item" data-ragebait="emoji">
+            <div class="ragebait-popup">
+                <div class="ragebait-popup-bar"><span></span><span></span><span></span></div>
+                <p class="ragebait-popup-text">El ragebait busca provocar deliberadamente rabia e indignación para conseguir clics, interacciones y visualizaciones.</p>
+            </div>
+            <button type="button" class="ragebait-icon-btn" aria-label="Mostrar información sobre ragebait">
+                <img src="recursos/emojienojado.png" alt="Emoji enojado" class="ragebait-icon-img">
+            </button>
+        </div>
+    
+        <div class="ragebait-icon-item" data-ragebait="youtube">
+            <button type="button" class="ragebait-icon-btn" aria-label="Mostrar información sobre AI Slop">
+                <img src="recursos/logoyoutube.png" alt="Logo de YouTube" class="ragebait-icon-img">
+            </button>
+            <div class="ragebait-popup">
+                <div class="ragebait-popup-bar"><span></span><span></span><span></span></div>
+                <p class="ragebait-popup-text">Se relaciona con el fenómeno de AI Slop, contenido sintético producido masivamente y de baja calidad.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<p class="fuentes-block">
+    <strong>Fuentes:</strong> <br>
+    <a href="https://www.unesco.org/es/articles/inteligencia-artificial-y-desinformacion" target="_blank" rel="noopener">https://www.unesco.org/es/articles/inteligencia-artificial-y-desinformacion</a><br>
+    <a href="https://www.eset.com/py/acerca-de-eset/sala-de-prensa/comunicados-de-prensa/articulos-de-prensa/7-casos-reales-de-estafas-donde-se-utilizaron-deepfakes/ " target="_blank" rel="noopener">https://www.eset.com/py/acerca-de-eset/sala-de-prensa/comunicados-de-prensa/articulos-de-prensa/7-casos-reales-de-estafas-donde-se-utilizaron-deepfakes/ </a><br>
+    <a href="https://chequeado.com/ultimas-noticias/los-videos-falsos-creados-con-ia-la-desinformacion-protagonista-de-2025/ " target="_blank" rel="noopener">https://chequeado.com/ultimas-noticias/los-videos-falsos-creados-con-ia-la-desinformacion-protagonista-de-2025/ </a><br>
+    <a href="https://chequeado.com/ultimas-noticias/circularon-videos-de-milei-y-kicillof-hechos-con-ia-como-identificarlos-y-como-cuidarse-de-estas-desinformaciones/ " target="_blank" rel="noopener">https://chequeado.com/ultimas-noticias/circularon-videos-de-milei-y-kicillof-hechos-con-ia-como-identificarlos-y-como-cuidarse-de-estas-desinformaciones/ </a>
+</p>
+
+        <!-- 5. IDENTIDADES SINTÉTICAS -->
+<section class="identidades-section">
+    <h2>IDENTIDADES SINTÉTICAS: POLÍTICOS E INFLUENCERS CREADOS ARTIFICIALMENTE</h2>
+
+    <div class="identidades-row" id="identidades-row">
+
+        <div class="identidad-item">
+            <p class="identidad-name">Lucía Libertaria</p>
+            <img src="recursos/identidad1.png" class="identidad-img" alt="Lucía Libertaria">
+
+            <div class="identidad-panel">
+                <p class="identidad-desc">Influencer ficticia creada con IA que construye una identidad digital propia para difundir mensajes políticos y contenido alineado con el espacio libertario.</p>
+                <video class="identidad-video" src="recursos/lucialibertaria.mp4" controls playsinline></video>
+            </div>
+        </div>
+
+        <div class="identidad-item">
+            <p class="identidad-name">Julia Riojana</p>
+            <img src="recursos/identidad2.png" class="identidad-img" alt="Julia Riojana">
+
+            <div class="identidad-panel">
+                <p class="identidad-desc">Personaje generado mediante IA que simula ser una mujer real de La Rioja. Su identidad y contenido fueron utilizados para transmitir mensajes de carácter político.</p>
+                <video class="identidad-video" src="recursos/juliariojana.mp4" controls playsinline></video>
+            </div>
+        </div>
+
+        <div class="identidad-item">
+            <p class="identidad-name">Doña María</p>
+            <img src="recursos/identidad3.png" class="identidad-img" alt="Doña María">
+
+            <div class="identidad-panel">
+                <p class="identidad-desc">Avatar creado con IA que simulaba ser una mujer mayor brasileña y publicaba videos criticando al gobierno de Lula da Silva. Su contenido llegó a difundirse en cientos de videos de TikTok.</p>
+                <video class="identidad-video" src="recursos/donamaria.mp4" controls playsinline></video>
+            </div>
+        </div>
+
+    </div>
+    <p class="fuentes-block">
+        <strong>Fuentes:</strong> <br>
+        <a href="https://chequeado.com/ultimas-noticias/como-se-usa-la-inteligencia-artificial-para-generar-indignacion-falsos-migrantes-manifestaciones-y-votantes/ " target="_blank" rel="noopener">https://chequeado.com/ultimas-noticias/como-se-usa-la-inteligencia-artificial-para-generar-indignacion-falsos-migrantes-manifestaciones-y-votantes/</a><br>
+        <a href="https://chequeado.com/ultimas-noticias/lucia-libertaria-y-julia-riojana-como-influencers-creadas-con-ia-construyen-identidades-para-difundir-mensajes-politicos/ " target="_blank" rel="noopener">https://chequeado.com/ultimas-noticias/lucia-libertaria-y-julia-riojana-como-influencers-creadas-con-ia-construyen-identidades-para-difundir-mensajes-politicos/ </a><br>
+        <a href="https://www.bbc.com/portuguese/articles/c7vq10lvv15o " target="_blank" rel="noopener">https://www.bbc.com/portuguese/articles/c7vq10lvv15o </a><br>
+        <a href="https://veja.abril.com.br/politica/pt-vai-ao-tse-e-pede-suspensao-de-perfil-fake-nas-redes-que-fazia-ataques-a-lula/ " target="_blank" rel="noopener">https://veja.abril.com.br/politica/pt-vai-ao-tse-e-pede-suspensao-de-perfil-fake-nas-redes-que-fazia-ataques-a-lula/ </a>
+    </p>
+</section>
+        <!-- 6. DEEPFAKES ESPECÍFICOS -->
+<section class="deepfake-especifico-section">
+    <h2>DEEPFAKE DE VOLODÍMIR ZELENSKI Y MAURICIO MACRI</h2>
+
+    <div class="botones-row" id="persona-botones">
+        <button type="button" class="boton-tab active" data-persona="zelenski">VOLODÍMIR ZELENSKI</button>
+        <button type="button" class="boton-tab" data-persona="macri">MAURICIO MACRI</button>
+    </div>
+
+    <video class="video-player" id="deepfake-video" src="recursos/video-zelenski.mp4" controls playsinline></video>
+
+    <h3>Cronología</h3> <br>
+
+    <div class="fases-carousel">
+        <button type="button" class="fase-arrow fase-arrow-left" id="fase-prev" aria-label="Fase anterior">◀</button>
+
+        <div class="fase-cards-viewport" id="fase-cards-viewport">
+            <!-- Las 3 tarjetas de fase se generan con JS según la persona elegida -->
+        </div>
+
+        <button type="button" class="fase-arrow fase-arrow-right" id="fase-next" aria-label="Fase siguiente">▶</button>
+    </div>
+</section>
+<p class="fuentes-block">
+    <strong>Fuentes:</strong> <br>
+    <a href="https://www.bbc.com/news/technology-60780142 " target="_blank" rel="noopener">https://www.bbc.com/news/technology-60780142 </a><br>
+    <a href="https://news.sky.com/story/ukraine-war-deepfake-video-of-zelenskyy-telling-ukrainians-to-lay-down-arms-debunked-12567789?.com " target="_blank" rel="noopener">https://news.sky.com/story/ukraine-war-deepfake-video-of-zelenskyy-telling-ukrainians-to-lay-down-arms-debunked-12567789?.com </a><br>
+    <a href="https://www.youtube.com/watch?v=Dms5ZP-BHV8 " target="_blank" rel="noopener">https://www.youtube.com/watch?v=Dms5ZP-BHV8 </a><br>
+    <a href="https://www.forbesargentina.com/today/deepfake-electoral-falso-video-denuncia-pro-orden-justicia-x-macri-esta-hecho-lloron-milei-n72431 " target="_blank" rel="noopener">https://www.forbesargentina.com/today/deepfake-electoral-falso-video-denuncia-pro-orden-justicia-x-macri-esta-hecho-lloron-milei-n72431 </a><br>
+    <a href="https://www.lanacion.com.ar/tecnologia/deepfakes-en-la-politica-mundial-cuando-ya-no-podemos-creer-en-lo-que-vemos-nid20052025/ " target="_blank" rel="noopener">https://www.lanacion.com.ar/tecnologia/deepfakes-en-la-politica-mundial-cuando-ya-no-podemos-creer-en-lo-que-vemos-nid20052025/ </a><br>
+    <a href="https://chequeado.com/ultimas-noticias/los-videos-falsos-creados-con-ia-la-desinformacion-protagonista-de-2025/ " target="_blank" rel="noopener">https://chequeado.com/ultimas-noticias/los-videos-falsos-creados-con-ia-la-desinformacion-protagonista-de-2025/ </a>
+</p>
+        <!-- 8. FOOTER -->
+<section class="footer-section">
+    <a href="percepcion.html" class="footer-face-link">
+        <span class="footer-face-cta">Clickeá para ir núcleo 1</span>
+        <img src="recursos/carasocial.png" class="img-placeholder footer-face" alt="Cara final">
+        <span class="footer-face-label">Percepción<br>Social</span>
+    </a>
+</section>
+
+    </div>
+
+</body>
+<div class="glitch-bg" aria-hidden="true"></div>
+    <div class="glitch-group gg-1"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-a"></div><div class="glitch-block gb-mini gb-mini-b"></div></div>
+    <div class="glitch-group gg-2"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-a"></div></div>
+    <div class="glitch-group gg-3"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-b"></div></div>
+    <div class="glitch-group gg-4"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-a"></div><div class="glitch-block gb-mini gb-mini-b"></div></div>
+    <div class="glitch-group gg-5"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-a"></div></div>
+    <div class="glitch-group gg-6"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-b"></div></div>
+    <div class="glitch-group gg-7"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-a"></div><div class="glitch-block gb-mini gb-mini-b"></div></div>
+    <div class="glitch-group gg-8"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-a"></div></div>
+    <div class="glitch-group gg-9"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-b"></div></div>
+    <div class="glitch-group gg-10"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-a"></div><div class="glitch-block gb-mini gb-mini-b"></div></div>
+    <div class="glitch-group gg-11"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-a"></div></div>
+</div>
+<script>
+    /* ==========================================================
+       GRÁFICO 1X → 6X - SECCIÓN "PROPAGACIÓN"
+       Al pasar el mouse, la barra azul se oculta y crece
+       la flecha roja, y la etiqueta cambia de 1X a 6X.
+       ========================================================== */
+    (function () {
+        const graph = document.getElementById('propagacion-graph');
+        const label = document.getElementById('graph-label');
+        if (!graph || !label) return;
+
+        graph.addEventListener('mouseenter', () => { label.textContent = '6X'; });
+        graph.addEventListener('mouseleave', () => { label.textContent = '1X'; });
+    })();
+
+    /* ==========================================================
+   CHEAPFAKES - TOGGLE ENTRE LOS DOS VIDEOS
+   Al hacer clic en un item, ese pasa a activo y el otro se
+   atenúa Y se pausa (no sigue reproduciéndose de fondo).
+   El play/volumen queda a cargo de los controles nativos
+   del navegador, así que no hay autoplay: el usuario
+   siempre tiene que darle play manualmente.
+   ========================================================== */
+(function () {
+    const items = document.querySelectorAll('#cheapfakes-row .cheapfake-item');
+    if (!items.length) return;
+
+    items.forEach((item) => {
+        const video = item.querySelector('video');
+
+        item.addEventListener('click', () => {
+            if (item.classList.contains('inactive')) {
+                items.forEach((i) => {
+                    const isSelected = i === item;
+                    i.classList.remove('active', 'inactive');
+                    i.classList.add(isSelected ? 'active' : 'inactive');
+
+                    if (!isSelected) {
+                        const otherVideo = i.querySelector('video');
+                        otherVideo.pause();
+                    }
+                });
+            }
+        });
+    });
+})();
+
+/* ==========================================================
+   IDENTIDADES SINTÉTICAS - PERFILES DESPLEGABLES
+   Cada perfil se abre/cierra de forma independiente al
+   hacer clic. Al abrir uno nuevo, se cierran los demás
+   (para que se vea de a un panel por vez, como en el Figma).
+   ========================================================== */
+   (function () {
+    const items = document.querySelectorAll('#identidades-row .identidad-item');
+    if (!items.length) return;
+
+    items.forEach((item) => {
+        item.addEventListener('click', () => {
+            const wasOpen = item.classList.contains('open');
+
+            items.forEach((i) => {
+                i.classList.remove('open');
+                // Pausa cualquier video que se esté reproduciendo al cerrar el panel
+                const video = i.querySelector('video');
+                if (video) video.pause();
+            });
+
+            if (!wasOpen) {
+                item.classList.add('open');
+            }
+        });
+    });
+})();
+/* ==========================================================
+   DEEPFAKE ZELENSKI / MACRI - TOGGLE DE VIDEO + CARRUSEL DE FASES
+   ========================================================== */
+   (function () {
+    const fasesData = {
+        zelenski: {
+            video: 'recursos/video-zelenski.mp4',
+            fases: [
+                {
+                    subtitle: 'Cómo se difundió:',
+                    items: [
+                        'Hackers <span class="fase-highlight">comprometieron</span> el sitio de la cadena ucraniana Ukrayina 24 (TV24).',
+                        '<span class="fase-highlight">Alteraron</span> el ticker de noticias que aparece durante las transmisiones.',
+                        'El video manipulado también fue publicado en su sitio web, <span class="fase-highlight">que quedó inaccesible</span> ese día.',
+                        'Se difundió primero en <span class="fase-highlight">plataformas rusas</span> como VK y canales prorrusos de Telegram y posteriormente llegó a Facebook, Twitter e Instagram.'
+                    ]
+                },
+                {
+                    subtitle: 'Mensaje falso:',
+                    items: [
+                        'Un <span class="fase-highlight">avatar</span> de Zelenski aparecía detrás de un podio presidencial.',
+                        'Afirmaba que <span class="fase-highlight">gobernar</span> había sido difícil.',
+                        'Decía que planeaba "devolver el Dombás" a Rusia.',
+                        'Afirmaba que el esfuerzo bélico había <span class="fase-highlight">fracasado</span>.',
+                        'Pedía a los soldados <span class="fase-highlight">deponer las armas</span> y regresar con sus familias.'
+                    ]
+                },
+                {
+                    subtitle: 'Respuesta:',
+                    items: [
+                        'El gobierno ucraniano ya había <span class="fase-highlight">advertido</span> sobre la posibilidad de deepfakes rusos.',
+                        'Zelenski respondió rápidamente con un video selfie real, grabado con su teléfono.',
+                        'Denominó al deepfake una <span class="fase-highlight">"provocación infantil"</span> y reafirmó que Ucrania continuaría defendiendo su territorio.',
+                        'Meta y YouTube eliminaron el contenido por infringir sus políticas contra <span class="fase-highlight">medios manipulados engañosos.</span>'
+                    ]
+                }
+            ]
+        },
+        macri: {
+            video: 'recursos/video-macri.mp4',
+            fases: [
+                {
+                    subtitle: 'Creación del Deepfake:',
+                    intro: 'Se genera el contenido falso',
+                    items: [
+                        'Se crea un <span class="fase-highlight">video con IA</span> que clona el rostro y la voz de Mauricio Macri.',
+                        'El video <span class="fase-highlight">simula que Macri anuncia</span> que Silvia Lospennato retira su candidatura.',
+                        'Además, <span class="fase-highlight">pide votar</span> por Manuel Adorni.'
+                    ]
+                },
+                {
+                    subtitle: 'Difusión y Viralización:',
+                    intro: 'El contenido se amplifica durante la veda',
+                    items: [
+                        'El video comienza a <span class="fase-highlight">circular en X</span>.',
+                        'Es <span class="fase-highlight">difundido</span> por cuentas afines a La Libertad Avanza:<ul class="fase-sublist"><li>@GordoDan_</li><li>@TommyShelby_30</li><li>@TalibanMilei</li><li>@ElTrumpista</li></ul>',
+                        'La difusión ocurre durante la veda electoral, buscando <span class="fase-highlight">favorecer</span> a Adorni.',
+                        'Noticias Argentinas verifica que el video es <span class="fase-highlight">falso.</span>'
+                    ]
+                },
+                {
+                    subtitle: 'Respuesta Judicial:',
+                    intro: 'Se interviene para frenar la desinformación',
+                    items: [
+                        'El PRO <span class="fase-highlight">denuncia el hecho</span> ante el Tribunal Electoral porteño.',
+                        'La Justicia ordena a X <span class="fase-highlight">eliminar el video</span> en un plazo de 2 horas.',
+                        'Se analiza una posible violación del Artículo 140 del Código Electoral Nacional, relacionado con la <span class="fase-highlight">inducción al voto mediante engaño</span>.',
+                        '<span class="fase-highlight">Interviene</span> el Ministerio Público Fiscal.'
+                    ]
+                }
+            ]
+        }
+    };
+
+    const botones = document.querySelectorAll('#persona-botones .boton-tab');
+    const video = document.getElementById('deepfake-video');
+    const viewport = document.getElementById('fase-cards-viewport');
+    const prevBtn = document.getElementById('fase-prev');
+    const nextBtn = document.getElementById('fase-next');
+
+    if (!botones.length || !video || !viewport) return;
+
+    let currentPersona = 'zelenski';
+    let currentIndex = 0;
+
+    function renderCards() {
+        const fases = fasesData[currentPersona].fases;
+        viewport.innerHTML = '';
+
+        fases.forEach((fase, i) => {
+            const diff = i - currentIndex;
+            let state = 'hidden';
+            if (diff === 0) state = 'active';
+            else if (diff === 1) state = 'next-1';
+            else if (diff === 2) state = 'next-2';
+            else if (diff === -1) state = 'prev-1';
+            else if (diff === -2) state = 'prev-2';
+
+            const card = document.createElement('div');
+            card.className = 'fase-card';
+            card.setAttribute('data-state', state);
+
+            const introHtml = fase.intro ? `<p class="fase-intro">${fase.intro}</p>` : '';
+            const itemsHtml = fase.items.map((item) => `<li>${item}</li>`).join('');
+
+            card.innerHTML = `
+                <p class="fase-title">FASE ${i + 1}</p>
+                <p class="fase-subtitle">${fase.subtitle}</p>
+                ${introHtml}
+                <ul class="fase-list">${itemsHtml}</ul>
+            `;
+
+            viewport.appendChild(card);
+        });
+
+        prevBtn.hidden = currentIndex === 0;
+        nextBtn.hidden = currentIndex === fases.length - 1;
+    }
+
+    function setPersona(persona) {
+        currentPersona = persona;
+        currentIndex = 0;
+        video.src = fasesData[persona].video;
+        video.load();
+
+        botones.forEach((btn) => {
+            btn.classList.toggle('active', btn.getAttribute('data-persona') === persona);
+        });
+
+        renderCards();
+    }
+
+    botones.forEach((btn) => {
+        btn.addEventListener('click', () => setPersona(btn.getAttribute('data-persona')));
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            renderCards();
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        const total = fasesData[currentPersona].fases.length;
+        if (currentIndex < total - 1) {
+            currentIndex++;
+            renderCards();
+        }
+    });
+
+    setPersona('zelenski');
+})();
+/* ==========================================================
+   RAGEBAIT - DIAGRAMA DE VIRALIZACIÓN (5 nodos, panel dinámico)
+   ========================================================== */
+   (function () {
+    const nodes = document.querySelectorAll('.viral-node');
+    const titleEl = document.getElementById('viral-title');
+    const descEl = document.getElementById('viral-desc');
+    const mediaEl = document.getElementById('viral-media');
+    const barEl = document.getElementById('viral-bar');
+
+    if (!nodes.length || !titleEl) return;
+
+    const DATA = [
+        {
+            title: 'CONTENIDO IA',
+            color: '#A2E6FF',
+            desc: 'La IA puede utilizarse para crear o manipular contenido que exagera la presencia de inmigrantes en distintas ciudades. Por ejemplo, este video:',
+            media: { type: 'video', src: 'recursos/contenido-ia.mp4' }
+        },
+        {
+            title: 'PROVOCACIÓN',
+            color: '#FF0000',
+            desc: 'Este tipo de contenido busca provocar una reacción emocional fuerte y fomentar el rechazo, el miedo o el odio hacia las personas inmigrantes.',
+            media: { type: 'img', src: 'recursos/provocacion.png' }
+        },
+        {
+            title: 'INDIGNACIÓN',
+            color: '#8B5CF4',
+            desc: 'La provocación genera indignación, especialmente entre personas con discursos antiinmigración, que reaccionan al contenido y expresan su enojo en redes sociales.',
+            media: { type: 'img', src: 'recursos/indignacion.png' }
+        },
+        {
+            title: 'INTERACCIÓN',
+            color: '#E947C0',
+            desc: 'Las reacciones hacen que aumenten los comentarios, las menciones y los compartidos. En un solo día, este tipo de contenido puede superar las 1.200 menciones en redes sociales.',
+            media: { type: 'gif', src: 'recursos/interaccion.gif' }
+        },
+        {
+            title: 'VIRALIZACIÓN',
+            color: '#E4C279',
+            desc: 'La gran cantidad de interacciones hace que los algoritmos amplifiquen el contenido, permitiendo que alcance millones de visualizaciones. Esta viralización incentiva la creación de más contenido similar y vuelve a alimentar el ciclo.',
+            media: { type: 'img', src: 'recursos/viralizacion.png' }
+        }
+    ];
+
+    let activeStep = 0;
+
+    function renderMedia(mediaInfo) {
+        mediaEl.innerHTML = '';
+        if (mediaInfo.type === 'video') {
+            const video = document.createElement('video');
+            video.src = mediaInfo.src;
+            video.controls = true;
+            video.playsInline = true;
+            mediaEl.appendChild(video);
+        } else {
+            const img = document.createElement('img');
+            img.src = mediaInfo.src;
+            img.alt = '';
+            mediaEl.appendChild(img);
+        }
+    }
+
+    function setStep(step) {
+        activeStep = step;
+        const item = DATA[step];
+
+        titleEl.textContent = item.title;
+        titleEl.style.color = item.color;
+        descEl.textContent = item.desc;
+        barEl.style.backgroundColor = item.color;
+        renderMedia(item.media);
+
+        nodes.forEach((node) => {
+            const nodeStep = parseInt(node.dataset.step, 10);
+            const distance = Math.min(Math.abs(nodeStep - step), 3);
+
+            node.classList.remove('dist-0', 'dist-1', 'dist-2', 'dist-3');
+            node.classList.add(`dist-${distance}`);
+
+            if (nodeStep === step) {
+                node.style.backgroundColor = item.color;
+                node.style.boxShadow = `0 0 30px ${item.color}`;
+            } else {
+                node.style.backgroundColor = '#ffffff';
+                node.style.boxShadow = 'none';
+            }
+        });
+    }
+
+    nodes.forEach((node) => {
+        node.addEventListener('click', () => {
+            setStep(parseInt(node.dataset.step, 10));
+        });
+    });
+
+    setStep(0);
+})();
+
+(function () {
+    const items = document.querySelectorAll('.ragebait-icon-item');
+    if (!items.length) return;
+
+    items.forEach((item) => {
+        const btn = item.querySelector('.ragebait-icon-btn');
+        if (!btn) return;
+        btn.addEventListener('click', () => item.classList.toggle('active'));
+    });
+})();
+</script>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfakes - Inicio</title>
+
+    <!-- Importación de la fuente Russo One desde Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+
+    <!-- Estilos compartidos entre las 3 páginas (reset, fuente custom, variables, botones, etc.) -->
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        
+        body {
+            background-color: #000226;
+
+            color: var(--text-light);
+            /* Fuente general para toda la página */
+            font-family: 'Russo One', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: #ffffff;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 3px 0px 5px rgba(255,255,255,0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+        }
+
+        h3 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+
+        /* --- SECCIÓN DE TEXTO --- */
+        .text-content {
+            max-width: 900px;
+            margin: 0 auto 3rem auto;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .text-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .text-red {
+            color: var(--red-accent);
+        }
+
+        .text-highlight {
+            background-color: var(--highlight-bg);
+            border: 1px solid var(--highlight-border);
+            padding: 0 4px;
+        }
+
+        /* --- SECCIÓN INTERACTIVA (CARAS) --- */
+        .faces-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .face-link {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .face-link:hover,
+        .face-link:focus-visible {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+
+        .face-link .label {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .side-face {
+    width: 220px;
+    height: auto;
+    object-fit: contain;
+}
+
+        .main-face-container {
+            position: relative;
+            width: 320px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-face {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* Pop-ups como imágenes */
+        .img-popup {
+            position: absolute;
+            height: auto;
+            object-fit: contain;
+            z-index: 20;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5));
+        }
+
+        /* Posicionamiento individual de cada pop-up. */
+        .popup-1 { top: 5%; left: -30%; width: 180px; }
+        .popup-2 { top: 40%; right: -40%; width: 200px; }
+        .popup-3 { bottom: 5%; left: -10%; width: 220px; }
+
+        /* --- FOOTER (Caras inferiores) --- */
+        .footer-faces {
+            width: 100%;
+            height: 120px;
+            background-color: 000226;
+            display: flex;
+            overflow: hidden;
+            justify-content: space-around;
+            align-items: flex-end;
+            margin-top: auto;
+        }
+
+        .footer-face-item {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            max-height: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>DEEPFAKES</h1>
+            <h2>Y SU IMPACTO EN LA SOCIEDAD</h2>
+        </header>
+
+        <section class="text-content">
+            <h3>¿Qué son?</h3>
+            <p>La irrupción de la tecnología orientada a la generación de videos con <span class="text-red">inteligencia artificial.</span></p>
+
+            <p>En este escenario, el análisis de los deepfakes y su impacto en la sociedad se presenta como una línea de investigación urgente y multifacética.</p>
+
+            <p>Esta problemática no puede entenderse de manera aislada, sino a través de la tensión entre dos ejes fundamentales que redefinen la realidad contemporánea: <span class="text-highlight">la percepción social</span> de las nuevas generaciones frente a la tecnología y la sistemática explotación de estas herramientas en el terreno de la <span class="text-highlight">desinformación política.</span></p>
+        </section>
+
+        <section class="faces-section">
+            <!-- ENLACE 1: Percepción Social -->
+            <a href="percepcion.html" class="face-link">
+                <span class="label">Percepción Social</span>
+                <img src="recursos/carasocial.png" alt="Rostro Percepción Social" class="side-face">
+            </a>
+
+            <!-- CARA CENTRAL Y POPUPS (COMO IMÁGENES) -->
+            <div class="main-face-container">
+                <img src="recursos/caraprincipal.png" alt="Rostro Central" class="main-face">
+
+                <img src="recursos/popup.png" alt="Popup 1" class="img-popup popup-1">
+                <img src="recursos/popup.png" alt="Popup 2" class="img-popup popup-2">
+                <img src="recursos/popup.png" alt="Popup 3" class="img-popup popup-3">
+            </div>
+
+            <!-- ENLACE 2: Desinformación Política -->
+            <a href="desinformacion.html" class="face-link">
+                <span class="label">Desinformación<br>Política</span>
+                <img src="recursos/carapolitica.png" alt="Rostro Desinformación Política" class="side-face">
+            </a>
+        </section>
+    </div>
+
+    <!-- HILERA DE CARAS INFERIOR -->
+    <footer class="footer-faces">
+        <img src="recursos/carasextras.png" alt="Rostro inferior" class="footer-face-item">
+        <img src="recursos/carasextras.png" alt="Rostro inferior" class="footer-face-item">
+    </footer>
+</body>
+<div class="glitch-bg" aria-hidden="true"></div>
+    <div class="glitch-block gb-1"></div>
+    <div class="glitch-block gb-2"></div>
+    <div class="glitch-block gb-3"></div>
+    <div class="glitch-block gb-4"></div>
+    <div class="glitch-block gb-5"></div>
+    <div class="glitch-block gb-6"></div>
+</div>
+</html>
