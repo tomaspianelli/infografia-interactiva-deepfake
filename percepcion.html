@@ -107,8 +107,14 @@
 .gg-7  { top: 3400px; left: 0; }
 .gg-8  { top: 3900px; right: 0; }
 .gg-9  { top: 4400px; right: 0; }
-.gg-10 { top: 5100px; right: 0; }
+/*.gg-10 { top: 5100px; right: 0; }*/
 .gg-11 { top: 5700px; left: 0; }
+.gg-12 { top: 550px;  right: 0; }
+.gg-13 { top: 1550px; left: 0; }
+/* .gg-14 { top: 2650px; right: 0; }
+.gg-15 { top: 3650px; left: 0; }*/
+.gg-16 { top: 4850px; right: 0; }
+.gg-17 { top: 6000px; left: 0; }
         @font-face {
             font-family: 'Those Glitch';
             src: url('recursos/Those\ Glitch\ Regular.ttf') format('truetype'); 
@@ -185,7 +191,7 @@
     width: 340px;
     height: 480px;
     left: -200px !important;
-    font-size: 0.95rem;
+    font-size: 1.15rem;
     position: absolute;
     left: 0;
     top: 140px;      /* antes 0 — ahora baja el párrafo, separándolo del título */
@@ -201,20 +207,42 @@
 
 }
 
-.side-face-right {
-    width: 340px;
-    height: 480px;
+.home-link {
     position: absolute;
-    right: -200px;    /* antes 0 — la saca del contenedor de 900px hacia afuera, separándola de la cabeza central */
+    right: -200px;
     top: 0;
-    cursor: pointer;
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    color: #fff;
+    text-decoration: none;
+    z-index: 3;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.home-link-img {
+    width: 100%;
+    height: 400px;          /* antes 480px: achica el aire de abajo */
     object-fit: contain;
-    transform: rotate(20deg);
-    transition: transform 0.3s;
+    transform: rotate(-15deg);  /* en percepcion.html: rotate(20deg) */
 }
-.side-face-right:hover { 
-    transform: scale(1.1) rotate(15deg); 
+
+.home-link-label {
+    margin-top: -2rem;      /* sube el texto hacia la cara */
+    font-size: 1.15rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
 }
+
+.home-link:hover,
+.home-link:focus-visible {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
 
         /* MAPA */
         .map-section {
@@ -257,6 +285,15 @@
     color: var(--red-accent);
 }
 
+/* --- CAJAS NEGRAS CON BORDE BLANCO: esquinas redondeadas --- */
+.map-frame,
+.usos-section,
+.chart-section,
+.propagacion-section,
+.ragebait-slop-box {
+    border-radius: 30px;
+}
+
 /* Contenedor del mapa: mantiene la proporción de diseño 1489x802,
    ahora achicado para entrar cómodo dentro del marco */
 .map-wrapper {
@@ -295,29 +332,29 @@
 
         /* Tarjeta flotante con bandera + estadística (igual a la referencia de Figma) */
         .map-card {
-            position: absolute;
-            transform: translate(-50%, -115%);
-            background: #ffffff;
-            color: #000000;
-            border: 2px solid #000000;
-            border-radius: 4px;
-            padding: 0.5rem 0.7rem;
-            width: 160px;
-            font-family: 'Russo One', sans-serif;
-            font-size: 0.7rem;
-            line-height: 1.35;
-            text-align: center;
-            display: none;
-            z-index: 30;
-            pointer-events: none;
-        }
+    position: absolute;
+    transform: translate(-50%, -115%);
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+    border-radius: 4px;
+    padding: 0.6rem 0.8rem;
+    width: 190px;
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.35;
+    text-align: center;
+    display: none;
+    z-index: 30;
+    pointer-events: none;
+}
+.map-card-flag {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.3rem;
+    line-height: 1;
+}
         .map-card.visible { display: block; }
-        .map-card-flag {
-            font-size: 1.6rem;
-            display: block;
-            margin-bottom: 0.3rem;
-            line-height: 1;
-        }
         .map-card strong { color: var(--red-accent); }
 
         /* VIOLENCIA DIGITAL*/
@@ -327,7 +364,7 @@
             margin-bottom: 1rem; }
         .red-text { 
             color: var(--red-accent); 
-            font-size: 1rem; 
+            font-size: 1.15rem; 
             margin-bottom: 3rem; 
             max-width: 600px; 
             margin-left: auto; 
@@ -428,7 +465,7 @@
 
         .quiz-side-text {
             width: 30%;
-            font-size: 0.9rem;
+            font-size: 1.15rem;
             line-height: 1.4;
             text-align: left;
         }
@@ -441,21 +478,36 @@
         }
 
         .quiz-arrow-btn {
-            margin-top: 1.5rem;
-            background: transparent;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            color: #fff;
-            font-size: 1.3rem;
-            cursor: pointer;
-            transition: background-color 0.2s ease, transform 0.2s ease;
-        }
-        .quiz-arrow-btn:hover {
-            background-color: rgba(255, 255, 255, 0.15);
-            transform: scale(1.05);
-        }
+    margin-top: 1.5rem;
+    background: transparent;
+    border: 2px solid #fff;
+    border-radius: 30px;
+    padding: 0.7rem 1.4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #fff;
+    font-family: 'Russo One', sans-serif;
+    font-size: 1.15rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.quiz-arrow-btn-icon {
+    font-size: 1.3rem;
+    line-height: 1;
+}
+.quiz-arrow-btn:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: scale(1.03);
+}
+.quiz-arrow-btn--back {
+    border-color: rgba(255, 255, 255, 0.5);
+    opacity: 0.85;
+}
+.quiz-arrow-btn--back:hover {
+    opacity: 1;
+}
 
         /* RIESGOS PARA LOS NIÑOS */
         .riesgos-section h2 { 
@@ -479,14 +531,14 @@
         }
         
         .kid-center {
-            transition: transform 0.3s;
-        }
-        .kid-center:hover {
-            transform: scale(1.3);
-        }
+    transition: transform 0.3s;
+}
+.kid-center.is-active {
+    transform: scale(1.3);
+}
         .riesgos-text { 
     width: 380px;  /* antes 300px */
-    font-size: 0.9rem; 
+    font-size: 1.15rem; 
     line-height: 1.4;
 }
 
@@ -522,40 +574,58 @@
 
         /* Configuración base de la línea para permitir la transición de crecimiento */
         .growth-path {
-            stroke-dasharray: 400;
-            stroke-dashoffset: 0;
-            transition: stroke-width 0.4s ease, filter 0.4s ease, stroke-dashoffset 0.6s ease;
-        }
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1.2s ease, stroke-width 0.4s ease, filter 0.4s ease;
+}
 
-        /* Efecto hover enfocado exclusivamente en el crecimiento y expansión de la línea y su punto final */
-        .chart-container:hover .growth-path {
-            stroke-width: 7px;
-            filter: drop-shadow(0 0 10px #ff003c);
-            stroke-dashoffset: 0;
-        }
+.value-connector {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.5s ease;
+}
 
-        .point-end {
-            transition: transform 0.3s ease, filter 0.3s ease;
-        }
+.chart-container:hover .value-connector {
+    stroke-dashoffset: 0;
+    transition-delay: 1.2s; /* arranca justo cuando termina de dibujarse la curva de arriba */
+}
 
-        .chart-container:hover .point-end {
-            transform: scale(1.5);
-            transform-origin: 350px 45px;
-            filter: drop-shadow(0 0 8px #ff003c);
-        }
+.chart-container:hover .growth-path {
+    stroke-dashoffset: 0;
+    stroke-width: 7px;
+    filter: drop-shadow(0 0 10px #ff003c);
+}
+
+.point-start,
+.point-end {
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+}
+
+.chart-container:hover .point-start {
+    opacity: 1;
+    transition-delay: 0s;
+}
+
+.chart-container:hover .point-end {
+    opacity: 1;
+    transform: scale(1.5);
+    transform-origin: 350px 45px;
+    filter: drop-shadow(0 0 8px #ff003c);
+    transition-delay: 1s; /* aparece casi cuando la línea termina de dibujarse */
+}
         
         .chart-text { 
             width: 38%; 
             font-family: 'Russo One', sans-serif;
-            font-size: 0.9rem; 
+            font-size: 1.15rem; 
             line-height: 1.6;
-            text-transform: uppercase;
             text-align: left;
         }
         
         .chart-text .text-red {
             color: var(--red-accent);
-            font-size: 1.05rem;
+            font-size: 1.15rem;
         }
 
         /* =========================================
@@ -587,7 +657,7 @@
         /* Textos del AI Slop */
         .slop-text { 
     width: 500px; 
-    font-size: 0.95rem; 
+    font-size: 1.15rem; 
     line-height: 1.6; 
     font-family: 'Russo One', sans-serif;
     font-weight: normal;
@@ -673,12 +743,32 @@
             object-fit: contain;
             margin-bottom: 1.5rem;
         }
-        .stat-slide p { font-size: 0.85rem; font-family: 'Arial', sans-serif; font-weight: bold; text-transform: uppercase;}
+        .stat-slide p { font-size: 1.15rem; font-family: 'Arial', sans-serif; font-weight: bold; text-transform: uppercase;}
 
         /* Retrasos para que aparezcan una tras otra */
         .stat-slide:nth-child(1) { animation-delay: 0s; }
         .stat-slide:nth-child(2) { animation-delay: 3s; }
         .stat-slide:nth-child(3) { animation-delay: 6s; }
+
+        .canal-caption-wrap {
+    position: relative;
+    width: 220px;
+    height: 1.6rem;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.canal-caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-family: 'Russo One', sans-serif;
+    font-size: 1.15rem;
+    color: #ffffff;
+    opacity: 0;
+    animation: fade-cycle 9s infinite;
+}
 
         @keyframes fade-cycle {
             0%, 5% { opacity: 0; transform: scale(0.95); }
@@ -721,14 +811,14 @@
 .algo-text-20 p {
     font-family: 'Russo One', sans-serif;
     text-transform: uppercase;
-    font-size: 1rem;
+    font-size: 1.15rem;
     line-height: 1.4;
     margin-left: -1.5rem;
 }
 
 .algo-scroll-hint {
     margin-top: 1.5rem;
-    font-size: 0.85rem !important;
+    font-size: 1.15rem !important;
     opacity: 0.75;
     margin-left: -1.5rem;
 }
@@ -773,17 +863,14 @@
 
 .phone-scroll-img {
     width: 100%;
-    height: 560px;
-    object-fit: cover;
-    object-position: center;
+    height: auto;
     display: block;
-    scroll-snap-align: start;
     pointer-events: none;
 }
 
         .algo-text-40 { 
             width: 45%; 
-            font-size: 1rem; 
+            font-size: 1.15rem; 
             line-height: 1.5;}
         .feed-img-2 { 
             width: 45%; 
@@ -1007,6 +1094,28 @@
 .fuentes-block a:focus-visible {
     color: rgba(255, 255, 255, 0.75);
 }
+.phone-dots {
+    --adelanto: 0.5s; /* subilo a 1s para más rápido, bajalo a 0.3s para más lento */
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: dot-cycle 9s infinite;
+}
+.dot:nth-child(1) { animation-delay: calc(0s - var(--adelanto)); }
+.dot:nth-child(2) { animation-delay: calc(3s - var(--adelanto)); }
+.dot:nth-child(3) { animation-delay: calc(6s - var(--adelanto)); }
+
+@keyframes dot-cycle {
+    0%, 30%      { opacity: 1;   transform: scale(1.4); }
+    33.4%, 100%  { opacity: 0.5; transform: scale(1); }
+}
 </style>
 </head>
 <body>
@@ -1017,14 +1126,14 @@
             <h1>PERCEPCIÓN<br>SOCIAL</h1>
             <div class="header-content">
                 <div class="header-text-left">
-                    <p>La percepción social de los deepfakes analiza cómo las personas interpretan y reaccionan ante contenidos creados o modificados con inteligencia artificial. 
-
-                        Su creciente uso, especialmente entre jóvenes, plantea desafíos relacionados con la confianza, la desinformación y la dificultad para distinguir lo real de lo artificial.</p>
+                    <p>La percepción social de los deepfakes analiza cómo las personas interpretan y reaccionan ante contenidos creados o modificados con inteligencia artificial. <br>
+                        <br> Su creciente uso, especialmente entre jóvenes, plantea desafíos relacionados con la confianza, la desinformación y la dificultad para distinguir lo real de lo artificial.</p>
                 </div>
                 <img src="recursos/carasocial.png" class="img-placeholder main-face" alt="Niño sin rostro">
                 
-                <a href="index.html">
-                    <img src="recursos/caraprincipal.png" class="img-placeholder side-face-right" alt="Volver Inicio">
+                <a href="index.html" class="home-link home-link--right">
+                    <img src="recursos/caraprincipal.png" class="home-link-img" alt="">
+                    <span class="home-link-label">Volver al Inicio</span>
                 </a>
             </div>
         </section>
@@ -1038,7 +1147,7 @@
                     <span class="text-red">aprendizaje</span> escolar en los jóvenes.
                 </p>
                 <div class="map-wrapper" id="map-wrapper">
-                <svg class="map-svg" viewBox="0 0 1489 802" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa mundial de uso de IA en estudiantes">
+                    <svg class="map-svg" viewBox="0 0 1489 802" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa mundial de uso de IA en estudiantes">
 <path class="country" d="M873.9,545.7L866.0,544.8L864.4,543.1L860.5,542.3L859.1,538.0L852.7,533.9L849.0,526.6L855.3,527.7L860.0,522.9L863.5,521.4L866.5,518.0L870.2,517.7L880.8,522.2L881.0,528.8L879.8,530.9L881.0,535.2L878.4,541.3Z"/>
 <path class="country" d="M870.2,517.7L866.5,518.0L863.5,521.4L860.0,522.9L855.3,527.7L849.0,526.6L844.9,525.3L841.2,526.0L836.1,521.7L835.4,519.0L835.4,506.8L843.6,506.8L843.6,498.0L845.1,500.1L849.2,499.5L849.3,501.1L856.0,502.3L861.8,504.7L864.5,508.3L867.7,508.4L867.7,503.3L864.7,504.1L861.8,500.5L863.0,497.2L862.0,491.2L864.3,488.1L871.7,486.9L876.6,490.5L880.7,491.9L883.7,496.8L882.1,498.1L882.6,504.7L881.1,505.3L879.6,509.3L881.8,511.0L869.5,515.0Z"/>
 <path class="country" d="M964.1,384.2L960.9,385.7L960.5,388.3L948.6,392.5L945.8,394.9L933.3,397.9L930.8,400.0L926.2,400.9L924.3,399.9L921.2,388.3L921.5,385.3L923.1,381.2L931.2,381.0L940.7,382.3L943.8,377.9L948.0,376.0L959.5,374.5ZM920.7,389.7L920.7,389.7L920.7,389.7ZM921.3,396.4L921.3,396.4L921.3,396.4ZM921.5,395.3L921.5,395.3L921.5,395.3ZM966.9,400.8L966.9,400.8L966.9,400.8Z"/>
@@ -1377,8 +1486,13 @@
                             <button type="button" class="quiz-icon" data-slot="9"><img src="recursos/logoyoutube.png" alt="Video 9" class="quiz-icon-img"></button>
                             <button type="button" class="quiz-icon" data-slot="10"><img src="recursos/logoyoutube.png" alt="Video 10" class="quiz-icon-img"></button>
                         </div>
+                        
                         <div class="quiz-side-text">
-                            <p>Clickeá los videos que creas que son pornográficos. Al terminar, seleccioná el ícono y arrastrá hacia la izquierda para ver la respuesta.</p>
+                            <p>Clickeá los videos que creas que son pornográficos. Al terminar, hacé click en la flecha para ver la respuesta.</p>
+                            <button type="button" class="quiz-arrow-btn" id="quiz-next-btn-select" aria-label="Ver la respuesta">
+                                <span class="quiz-arrow-btn-icon" aria-hidden="true">➤</span>
+                                <span class="quiz-arrow-btn-text">Ver la respuesta</span>
+                            </button>
                         </div>
                     </div>
 
@@ -1399,7 +1513,10 @@
                         <div class="quiz-side-text">
                             <p class="quiz-stat">98%</p>
                             <p>son videos pornográficos</p>
-                            <button type="button" class="quiz-arrow-btn" id="quiz-next-btn" aria-label="Ver siguiente estadística">➤</button>
+                            <button type="button" class="quiz-arrow-btn" id="quiz-next-btn" aria-label="A quiénes afectan">
+                                <span class="quiz-arrow-btn-icon" aria-hidden="true">➤</span>
+                                <span class="quiz-arrow-btn-text">A quiénes afectan</span>
+                            </button>
                         </div>
                     </div>
 
@@ -1415,12 +1532,16 @@
                             <button type="button" class="quiz-icon static" tabindex="-1"><img src="recursos/yotubemujer.png" alt="Mujer afectada por deepfakes sexuales"></button>
                             <button type="button" class="quiz-icon static" tabindex="-1"><img src="recursos/yotubemujer.png" alt="Mujer afectada por deepfakes sexuales"></button>
                             <button type="button" class="quiz-icon static" tabindex="-1"><img src="recursos/yotubemujer.png" alt="Mujer afectada por deepfakes sexuales"></button>
-                            <button type="button" class="quiz-icon" id="quiz-back-btn" aria-label="Volver a empezar el ejercicio"><img src="recursos/botonyoutube.png" alt="Volver al inicio"></button>
-                        </div>
-                        <div class="quiz-side-text">
-                            <p class="quiz-stat">99%</p>
-                            <p>de las personas afectadas son mujeres</p>
-                        </div>
+                            <button type="button" class="quiz-icon static" tabindex="-1"><img src="recursos/logoyoutube.png" alt="Caso no identificado como mujer afectada"></button>
+        </div>
+        <div class="quiz-side-text">
+            <p class="quiz-stat">99%</p>
+            <p>de las personas afectadas son mujeres</p>
+            <button type="button" class="quiz-arrow-btn quiz-arrow-btn--back" id="quiz-back-btn" aria-label="Volver a empezar">
+                <span class="quiz-arrow-btn-icon" aria-hidden="true">◀</span>
+                <span class="quiz-arrow-btn-text">Volver a empezar</span>
+            </button>
+        </div>
                     </div>
 
                 </div>
@@ -1457,16 +1578,16 @@
                     <br>
                     <p>La facilidad para crear este contenido aumenta la circulación y comercialización de material relacionado con violencia sexual infantil.</p>
                 </div>
-                <div class="grid-5x5">
+                <div class="grid-5x5" id="riesgos-grid">
                     <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon">
                     <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon">
-                    
+                
                     <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon">
-                    
-                    <img src="recursos/kidn.png" class="img-placeholder kid-icon kid-center" onmouseover="this.src='recursos/kid.gif'" onmouseout="this.src='recursos/kidn.png'"> 
-                    
+                
+                    <img src="recursos/kidn.png" class="img-placeholder kid-icon kid-center" id="kid-center-img">
+                
                     <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon">
-                    
+                
                     <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon">
                     <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon"> <img src="recursos/kidn.png" class="img-placeholder kid-icon">
                 </div>
@@ -1479,33 +1600,42 @@
 
 <section class="chart-section">
             <div class="chart-container">
-                <svg viewBox="0 0 420 200" class="custom-svg-chart">
+                <svg viewBox="0 0 420 215" class="custom-svg-chart">
                     <!-- Líneas de referencia sutiles del fondo -->
                     <line x1="50" y1="95" x2="390" y2="95" stroke="#ffffff" stroke-width="1" opacity="0.08" stroke-dasharray="4"/>
-                    
+                
                     <!-- Ejes principales -->
                     <line x1="50" y1="160" x2="390" y2="160" stroke="#ffffff" stroke-width="2" opacity="0.3"/>
                     <line x1="50" y1="30" x2="50" y2="160" stroke="#ffffff" stroke-width="2" opacity="0.3"/>
-                    
+                
                     <!-- Curva de crecimiento interactiva -->
-                    <path class="growth-path" d="M 90 148 Q 240 160 350 45" fill="none" stroke="#ff003c" stroke-width="4"/>
-                    
+                    <path class="growth-path" d="M 90 148 Q 240 160 350 45" fill="none" stroke="#ff003c" stroke-width="4" pathLength="1"/>
+                
+                    <!-- Línea recta que conecta el valor 67.000 con el eje (se dibuja cuando termina la curva de arriba) -->
+                    <line class="value-connector" x1="350" y1="45" x2="350" y2="160" stroke="#ff003c" stroke-width="2" pathLength="1"/>
+                
                     <!-- Puntos de datos -->
-                    <circle cx="90" cy="148" r="5" fill="#ffffff" stroke="#ff003c" stroke-width="2"/>
+                    <circle class="point-start" cx="90" cy="148" r="5" fill="#ffffff" stroke="#ff003c" stroke-width="2"/>
                     <circle class="point-end" cx="350" cy="45" r="7" fill="#ff003c"/>
-                    
+                
                     <!-- Etiquetas del Eje X (Años) -->
-                    <text x="90" y="183" fill="#ffffff" font-family="'Russo One', sans-serif" font-size="12" text-anchor="middle" opacity="0.7">2023</text>
-                    <text x="350" y="183" fill="#ffffff" font-family="'Russo One', sans-serif" font-size="12" text-anchor="middle" opacity="0.7">2024</text>
-                    
+                    <text x="90" y="183" fill="#ffffff" font-family="'Russo One', sans-serif" font-size="14" text-anchor="middle" opacity="0.7">2023</text>
+                    <text x="350" y="183" fill="#ffffff" font-family="'Russo One', sans-serif" font-size="14" text-anchor="middle" opacity="0.7">2024</text>
+                
                     <!-- Valores numéricos -->
-                    <text x="90" y="132" fill="#ffffff" font-family="'Russo One', sans-serif" font-size="11" text-anchor="middle">7.000</text>
-                    <text x="350" y="25" fill="#ff003c" font-family="'Russo One', sans-serif" font-size="14" text-anchor="middle">67.000</text>
+                    <text x="90" y="132" fill="#ffffff" font-family="'Russo One', sans-serif" font-size="15" text-anchor="middle">7.000</text>
+                    <text x="350" y="22" fill="#ff003c" font-family="'Russo One', sans-serif" font-size="19" text-anchor="middle">67.000</text>
+                
+                    <!-- Etiqueta del eje Y: "Casos" (rotada, corre pegada al eje vertical) -->
+                    <text x="20" y="95" fill="#ffffff" font-family="'Russo One', sans-serif" font-size="17" text-anchor="middle" opacity="0.85" transform="rotate(-90 20 95)">Casos</text>
+                
+                    <!-- Etiqueta del eje X: "Años" -->
+                    <text x="220" y="202" fill="#ffffff" font-family="'Russo One', sans-serif" font-size="17" text-anchor="middle" opacity="0.85">Años</text>
                 </svg>
             </div>
             
             <div class="chart-text">
-                <p>Solo en Estados Unidos, los casos de abuso infantil facilitados por tecnología tuvieron un crecimiento de más de <span class="text-red">14 veces</span> en un año.</p>
+                <p>Solo en Estados Unidos, los casos de abuso infantil facilitados por tecnología aumentaron <span class="text-red">14 veces</span> en un año.</p>
             </div>
         </section>
 
@@ -1553,28 +1683,26 @@
                     <br>
                     <p>Y <strong>Cuentos Fascinantes</strong> era el canal con más suscriptores de los canales de AI slop analizados: unos <span class="text-red">5,95 millones</span>, con aproximadamente 1,28 mil millones de vistas.</p>
                 </div>
-
-                <!-- Carrusel Automático de Fases (Estadísticas) -->
-                <div class="stats-carousel-container">
-                    
-                    <!-- FASE 1: Azul -->
-                    <div class="stat-slide">
-                        <img src="recursos/icono-azul.png" class="img-placeholder" alt="Usuarios">
-                        <p>En conjunto acumulaban 63.000 millones de visualizaciones y 221 millones de suscriptores</p>
+            
+                <!-- Celular con capturas de los 3 canales -->
+                <div class="phone-container">
+                    <div class="phone-frame">
+                        <div class="phone-track">
+                            <img src="recursos/canal-bandar.gif" class="img-placeholder" alt="Bandar Apna Dost">
+                            <img src="recursos/canal-3minutes.gif" class="img-placeholder" alt="Three Minutes Wisdom">
+                            <img src="recursos/canal-cuentos.gif" class="img-placeholder" alt="Cuentos Fascinantes">
+                        </div>
                     </div>
-
-                    <!-- FASE 2: Rojo -->
-                    <div class="stat-slide">
-                        <img src="recursos/icono-rojo.png" class="img-placeholder" alt="YouTube">
-                        <p>Youtube identificó 278 que contenían solo este tipo de vídeos.</p>
+            
+                    <div class="canal-caption-wrap">
+                        <span class="canal-caption" style="animation-delay: 0s;">Bandar Apna Dost</span>
+                        <span class="canal-caption" style="animation-delay: 3s;">Three Minutes Wisdom</span>
+                        <span class="canal-caption" style="animation-delay: 6s;">Cuentos Fascinantes</span>
                     </div>
-
-                    <!-- FASE 3: Verde -->
-                    <div class="stat-slide">
-                        <img src="recursos/icono-verde.png" class="img-placeholder" alt="Dólares">
-                        <p>Se estima que ganarían alrededor de 117 millones de dólares anuales.</p>
+            
+                    <div class="phone-dots">
+                        <div class="dot active"></div><div class="dot"></div><div class="dot"></div>
                     </div>
-
                 </div>
             </div>
             <p class="fuentes-block">
@@ -1595,9 +1723,7 @@
                 <div class="phone-container">
                     <div class="phone-frame">
                         <div class="phone-scroll-track" id="algo-scroll-track">
-                            <img src="recursos/feed1.png" class="phone-scroll-img" alt="Feed generado por IA 1">
-                            <img src="recursos/feed2.png" class="phone-scroll-img" alt="Feed generado por IA 2">
-                            <img src="recursos/feed2.png" class="phone-scroll-img" alt="Feed generado por IA 3">
+                            <img src="recursos/Frame 93.png" class="phone-scroll-img" alt="Feed generado por IA">
                         </div>
                     </div>
                 </div>
@@ -1637,9 +1763,8 @@
         
             <a href="desinformacion.html" class="footer-link-wrapper" style="position: relative; z-index: 2;">
                <br>
-                <p class="footer-text-top">Clickeá para ir núcleo 2</p>
+                <p class="footer-text-top">Clickeá para ver el impacto de la IA en la <br> Desinformación Política</p>
                 <img src="recursos/carapolitica.png" class="img-placeholder footer-face" alt="Cabeza">
-                <p class="footer-text-top">Desinformación<br>Política</p>
             </a>
         </section>
 
@@ -1732,82 +1857,59 @@
         })();
 
         /* ==========================================================
-           QUIZ INTERACTIVO - VIOLENCIA DIGITAL: DEEPFAKES SEXUALES
-           3 paneles que se deslizan: selección -> 98% -> 99%
-           ========================================================== */
-        (function () {
-            const viewport = document.getElementById('quiz-viewport');
-            const track = document.getElementById('quiz-track');
-            const nextBtn = document.getElementById('quiz-next-btn');
-            const backBtn = document.getElementById('quiz-back-btn');
-            const selectIcons = document.querySelectorAll('#quiz-grid-select .quiz-icon');
+   QUIZ INTERACTIVO - VIOLENCIA DIGITAL: DEEPFAKES SEXUALES
+   3 paneles, navegación solo por botones (sin arrastre)
+   ========================================================== */
+(function () {
+    const track = document.getElementById('quiz-track');
+    const nextBtnSelect = document.getElementById('quiz-next-btn-select');
+    const nextBtn = document.getElementById('quiz-next-btn');
+    const backBtn = document.getElementById('quiz-back-btn');
+    const selectIcons = document.querySelectorAll('#quiz-grid-select .quiz-icon');
 
-            if (!viewport || !track) return;
+    if (!track) return;
 
-            const TOTAL_SLIDES = 3;
-            let currentSlide = 0;
+    const TOTAL_SLIDES = 3;
+    let currentSlide = 0;
 
-            function goToSlide(index) {
-                currentSlide = Math.max(0, Math.min(TOTAL_SLIDES - 1, index));
-                track.style.transform = `translateX(-${currentSlide * (100 / TOTAL_SLIDES)}%)`;
-            }
+    function goToSlide(index) {
+        currentSlide = Math.max(0, Math.min(TOTAL_SLIDES - 1, index));
+        track.style.transform = `translateX(-${currentSlide * (100 / TOTAL_SLIDES)}%)`;
+    }
 
+    selectIcons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const img = btn.querySelector('img');
+            const selected = btn.classList.toggle('selected');
+            img.src = selected
+                ? 'recursos/logoyotubeazul.png'
+                : 'recursos/logoyoutube.png';
+        });
+    });
+
+    if (nextBtnSelect) {
+        nextBtnSelect.addEventListener('click', () => goToSlide(1));
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => goToSlide(2));
+    }
+
+    if (backBtn) {
+        backBtn.addEventListener('click', () => {
             selectIcons.forEach((btn) => {
-                btn.addEventListener('click', () => {
-                    const img = btn.querySelector('img');
-                    const selected = btn.classList.toggle('selected');
-                    img.src = selected
-                        ? 'recursos/logoyotubeazul.png'
-                        : 'recursos/logoyoutube.png';
-                });
+                btn.classList.remove('selected');
+                btn.querySelector('img').src = 'recursos/logoyoutube.png';
             });
+            goToSlide(0);
+        });
+    }
 
-            if (nextBtn) {
-                nextBtn.addEventListener('click', () => goToSlide(2));
-            }
-
-            if (backBtn) {
-                backBtn.addEventListener('click', () => {
-                    selectIcons.forEach((btn) => {
-                        btn.classList.remove('selected');
-                        btn.querySelector('img').src = 'recursos/logoyoutube.png';
-                    });
-                    goToSlide(0);
-                });
-            }
-
-            let startX = 0;
-            let isDragging = false;
-
-            function onDragStart(x) {
-                startX = x;
-                isDragging = true;
-            }
-
-            function onDragEnd(x) {
-                if (!isDragging) return;
-                isDragging = false;
-                const deltaX = x - startX;
-                const THRESHOLD = 60;
-
-                if (deltaX < -THRESHOLD && currentSlide < TOTAL_SLIDES - 1) {
-                    if (currentSlide === 0) goToSlide(1);
-                } else if (deltaX > THRESHOLD && currentSlide > 0) {
-                    goToSlide(currentSlide - 1);
-                }
-            }
-
-            viewport.addEventListener('pointerdown', (e) => onDragStart(e.clientX));
-            viewport.addEventListener('pointerup', (e) => onDragEnd(e.clientX));
-            viewport.addEventListener('pointerleave', () => { isDragging = false; });
-
-            viewport.addEventListener('touchstart', (e) => onDragStart(e.touches[0].clientX), { passive: true });
-            viewport.addEventListener('touchend', (e) => onDragEnd(e.changedTouches[0].clientX));
+    goToSlide(0);
+})();
 
             /* ==========================================================
    SCROLL MANUAL DEL CELULAR - SECCIÓN "20%"
-   Permite recorrer las imágenes arrastrando con el mouse,
-   además del scroll normal con la rueda al pasar por encima.
    ========================================================== */
 (function () {
     const track = document.getElementById('algo-scroll-track');
@@ -1832,7 +1934,6 @@
         track.scrollTop = startScroll - delta;
     });
 
-    // Soporte táctil (celulares/tablets)
     track.addEventListener('touchstart', (e) => {
         startY = e.touches[0].pageY;
         startScroll = track.scrollTop;
@@ -1843,7 +1944,40 @@
         track.scrollTop = startScroll - delta;
     }, { passive: true });
 })();
-        })();
+
+        /* ==========================================================
+   RIESGOS PARA LOS NIÑOS - cualquier nene del grid activa
+   el gif del nene central
+   ========================================================== */
+(function () {
+    const grid = document.getElementById('riesgos-grid');
+    const centerImg = document.getElementById('kid-center-img');
+    if (!grid || !centerImg) return;
+
+    function activar() {
+        centerImg.src = 'recursos/kid.gif';
+        centerImg.classList.add('is-active');
+    }
+
+    function desactivar() {
+        centerImg.src = 'recursos/kidn.png';
+        centerImg.classList.remove('is-active');
+    }
+
+    grid.addEventListener('mouseover', activar);
+
+    // mouseout dispara al pasar de un <img> a otro dentro del mismo grid;
+    // con relatedTarget chequeamos que realmente salió del grid completo
+    grid.addEventListener('mouseout', (e) => {
+        if (!grid.contains(e.relatedTarget)) {
+            desactivar();
+        }
+    });
+
+    // soporte touch (celular/tablet)
+    grid.addEventListener('touchstart', activar, { passive: true });
+    grid.addEventListener('touchend', desactivar);
+})();
     </script>
 </body>
 <div class="glitch-bg" aria-hidden="true">
@@ -1858,6 +1992,12 @@
     <div class="glitch-group gg-9"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-b"></div></div>
     <div class="glitch-group gg-10"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-a"></div><div class="glitch-block gb-mini gb-mini-b"></div></div>
     <div class="glitch-group gg-11"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-a"></div></div>
+    <div class="glitch-group gg-12"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-a"></div></div>
+    <div class="glitch-group gg-13"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-b"></div></div>
+    <div class="glitch-group gg-14"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-a"></div><div class="glitch-block gb-mini gb-mini-b"></div></div>
+    <div class="glitch-group gg-15"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-a"></div></div>
+    <div class="glitch-group gg-16"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-b"></div></div>
+    <div class="glitch-group gg-17"><div class="glitch-block gb-main"></div><div class="glitch-block gb-mini gb-mini-a"></div><div class="glitch-block gb-mini gb-mini-b"></div></div>
 </div>
 </html>
 </html>
